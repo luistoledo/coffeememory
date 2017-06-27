@@ -1,0 +1,63 @@
+{
+  "sensor": {
+    "port_number": 2,
+    "threshold": 2
+  },
+  "camera": {
+    "threshold": 10
+  },
+  "screens": [
+    {
+      "id": "mug",
+      "x": 160,
+      "y": 350,
+      "w": 230,
+      "h": 240,
+      "radius": 10
+    },
+    {
+      "id": "cup",
+      "x": 150,
+      "y": 10,
+      "w": 250,
+      "h": 100,
+      "radius": 10
+    },
+    {
+      "id": "pan",
+      "x": 500,
+      "y": 200,
+      "w": 200,
+      "h": 160,
+      "radius": 30
+    }
+  ],
+  "chapter_outside": {
+    "id": "outside",
+    "pan_video": "windows.mp4",
+    "mug_video": "",
+    "cup_video": "",
+    "pan_video_overlay": "windows.mp4",
+    "mug_video_overlay": "",
+    "cup_video_overlay": "",
+    "looping": true,
+    "proximity_threshold": 50,
+    "proximity_quantity": 600,
+    "proximity_minimumtime": 100,
+    "distort_threshold": 0
+  },
+  "chapter_inside": {
+    "id": "inside",
+    "pan_video": "a-coffee.mp4",
+    "mug_video": "",
+    "cup_video": "",
+    "pan_video_overlay": "a-coffee_distorted.mp4",
+    "mug_video_overlay": "",
+    "cup_video_overlay": "",
+    "looping": true,
+    "proximity_threshold": 0,
+    "proximity_minimumtime": 0,
+    "proximity_quantity": 0,
+    "distort_threshold": 10
+  }
+}
