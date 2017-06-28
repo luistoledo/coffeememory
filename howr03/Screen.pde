@@ -166,7 +166,7 @@ class Screen{
     text("enabled: "+this.enabled, region.x, region.y+region.h+50);
     
     float diff = video.duration() - video.time();
-    text("diff: "+diff, region.x, region.y+region.h+60);
+    text("timeleft: "+diff, region.x, region.y+region.h+60);
 
     stroke(100,250,100);
     noFill();

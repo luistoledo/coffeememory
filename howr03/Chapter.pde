@@ -55,8 +55,8 @@ class Chapter {
     // return cup.isEnded(); 
     // return pan.isEnded() && cup.isEnded();
     //return pan.isEnded() && cup.isEnded() && mug.isEnded();
-    //return pan.isEnded() && cup.isEnded() && mug.isEnded();
-    return pan.isEnded();
+    return pan.isEnded() && cup.isEnded() && mug.isEnded();
+    // return pan.isEnded();
   }
 
   void distort(int value) {

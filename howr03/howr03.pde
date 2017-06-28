@@ -27,7 +27,7 @@ void setup(){
   ChapterData insideData  = new ChapterData(jsonData.getJSONObject("chapter_inside"));
 
   // second parameter: arduino usb port
-  sensor = new Sensor(this, 1, insideData.distortThreshold);
+  sensor = new Sensor(this, 2, insideData.distortThreshold);
   // second parameter: camera index. 10:size=160x90,fps=15
   proximity = new Proximity(this, 10);
 
@@ -89,8 +89,8 @@ void draw(){
   if (this.current==CHAPTER_INSIDE) {
     inside.draw();
 
-    if (sensor.s2) {
-      inside.distort(sensor.sensor2);
+    if (sensor.s1) {
+      inside.distort(sensor.sensor1);
       // println(sensor.sensor2);
     }
 
@@ -142,12 +142,12 @@ void keyPressed(){
   }
 
   if (key == '2') {
-    sensor.s2 = true;
-    sensor.sensor2 += 5;
+    sensor.s1 = true;
+    sensor.sensor1 += 5;
   }
   if (key == '0') {
-    sensor.s2 = false;
-    sensor.sensor2 = 0;
+    sensor.s1 = false;
+    sensor.sensor1 = 0;
   }
 }
 
