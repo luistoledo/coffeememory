@@ -16,18 +16,18 @@ class Chapter {
   // int longestVideoDuration;
 
   Chapter(PApplet sketch, ChapterData data, ScreensData screensData) {
-    pan = new Screen(sketch, data.panVideo, data.panVideoOverlay, screensData.pan);
-    mug = new Screen(sketch, data.mugVideo, data.mugVideoOverlay, screensData.mug);
-    cup = new Screen(sketch, data.cupVideo, data.cupVideoOverlay, screensData.cup);
+    this.pan = new Screen(sketch, data.panVideo, data.panVideoOverlay, screensData.pan);
+    this.mug = new Screen(sketch, data.mugVideo, data.mugVideoOverlay, screensData.mug);
+    this.cup = new Screen(sketch, data.cupVideo, data.cupVideoOverlay, screensData.cup);
 
     // longestVideoDuration = max( pan.duration(), mug.duration(), cup.duration() );
 
-    looping = data.looping;
-    proximityThreshold = data.proximityThreshold;
-    proximityMinimumtime = data.proximityMinimumtime;
-    proximityMinimumtimeCounter = 0;
-    distortThreshold = data.distortThreshold;
-    proximityQuantity = data.proximityQuantity;
+    this.looping = data.looping;
+    this.proximityThreshold = data.proximityThreshold;
+    this.proximityMinimumtime = data.proximityMinimumtime;
+    this.proximityMinimumtimeCounter = 0;
+    this.distortThreshold = data.distortThreshold;
+    this.proximityQuantity = data.proximityQuantity;
   }
 
   void draw() {
@@ -37,9 +37,9 @@ class Chapter {
   }
 
   void start(){
-    pan.start(looping);
-    mug.start(looping);
-    cup.start(looping);
+    pan.start(this.looping);
+    mug.start(this.looping);
+    cup.start(this.looping);
   }
 
   void stop(){
@@ -49,11 +49,14 @@ class Chapter {
   }
 
   Boolean isEnded(){
+    //if (this.looping) return false;
     //&& pan.isEnded() && pan.isEnded();
     // return pan.isEnded(); 
     // return cup.isEnded(); 
     // return pan.isEnded() && cup.isEnded();
-    return pan.isEnded() && cup.isEnded() && mug.isEnded();
+    //return pan.isEnded() && cup.isEnded() && mug.isEnded();
+    //return pan.isEnded() && cup.isEnded() && mug.isEnded();
+    return pan.isEnded();
   }
 
   void distort(int value) {

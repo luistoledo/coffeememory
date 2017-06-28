@@ -4,9 +4,9 @@ class ScreensData {
   ScreenData cup;
 
   ScreensData(JSONArray data) {
-    this.pan = new ScreenData (data.getJSONObject(0));
-    this.mug = new ScreenData (data.getJSONObject(1));
-    this.cup = new ScreenData (data.getJSONObject(2));
+    this.pan = new ScreenData (data.getJSONObject(2));
+    this.mug = new ScreenData (data.getJSONObject(0));
+    this.cup = new ScreenData (data.getJSONObject(1));
   }
 }
 

@@ -1,3 +1,6 @@
+boolean debug = false;
+boolean USERSENSOR = true;
+
 static final int CHAPTER_OUTSIDE = 0;
 static final int CHAPTER_INSIDE  = 1;
 
@@ -9,10 +12,13 @@ int current;
 Sensor sensor;
 Proximity proximity;
 
-boolean debug = false;
+void settings(){
+  fullScreen();
+  size(800, 600, P2D);
+}
 
 void setup(){
-  size(800, 600, P2D);
+  //size(800, 600, P2D);
 
   JSONObject jsonData = loadJSONObject("config.json");
 
@@ -41,11 +47,19 @@ void draw(){
   }else {
     background(0);
   }
+  
+  if (debug) {
+    pushStyle();
+    stroke(100,250,100);
+    noFill();
+    rect(0,0,width-1,height-1);
+    popStyle();
+  }
 
   if (this.current==CHAPTER_OUTSIDE) {
     outside.draw();
 
-    if (proximity.detect(outside.proximityThreshold, outside.proximityQuantity)) {
+     if (proximity.detect(outside.proximityThreshold, outside.proximityQuantity)) {
       outside.proximityMinimumtimeCounter++;
       if (outside.proximityMinimumtimeCounter > outside.proximityMinimumtime) {
         outside.stop();
@@ -56,7 +70,7 @@ void draw(){
       }
     } else {
       outside.proximityMinimumtimeCounter = 0;
-    }
+     }
 
     if (debug) {
       pushStyle();
@@ -118,8 +132,22 @@ void keyPressed(){
     debug = !debug;
     println("debug: ", debug);
   }
+ 
+  //if (key == 'r') {
+  //  setup();
+  //}
+  
   if (key == '1') {
-    proximity.setBGReference();
+     proximity.setBGReference();
+  }
+
+  if (key == '2') {
+    sensor.s2 = true;
+    sensor.sensor2 += 5;
+  }
+  if (key == '0') {
+    sensor.s2 = false;
+    sensor.sensor2 = 0;
   }
 }
 

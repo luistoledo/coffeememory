@@ -35,8 +35,10 @@ public class Sensor {
 
     this.sketch = s;
     this.serialProxy = new SerialProxy();
-    sketch.registerMethod("dispose", this);
-    connect(portNumber);
+    if (USERSENSOR) {
+       sketch.registerMethod("dispose", this);
+       connect(portNumber);
+    }
     this.threshold = threshold;
   }
   
@@ -53,8 +55,6 @@ public class Sensor {
   }
 
   public class SerialProxy extends PApplet {
-     // public SerialProxy() {
-     // }
     public void serialEvent(Serial which) {
       try {
         while (which.available() > 0) {

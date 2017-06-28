@@ -10,7 +10,7 @@ class Screen{
   Boolean ended = false;
   Boolean editing = false;
   
-  int DISTORTIONLIMIT = 100;
+  int DISTORTIONLIMIT = 180;
 
   Movie video;
   Movie videoOverlay;
@@ -22,7 +22,7 @@ class Screen{
 
   Screen (PApplet sketch, String videoFile, String videoFileOverlay, ScreenData data) {
     this.sketch = sketch;
-    this.region = new Rect(data.x, data.y, data.w, data.h);
+    this.region = new Rect(data.x, data.y, data.w, int(data.w/1.85));
     this.maskRadius = data.radius;
     this.id = data.id;
     this.file = videoFile;
@@ -43,15 +43,16 @@ class Screen{
   }
 
   public void start(Boolean looping) {
-    if (!this.enabled) return;
+    if (!this.enabled) return; //<>//
 
     this.video.stop();
-    this.looping = looping;
-    if (this.looping) {
+    this.videoOverlay.stop();
+    
       this.video.loop();
       this.videoOverlay.loop();
-    }
-    else{
+
+    this.looping = looping;
+    if (!this.looping) {
       this.video.noLoop();
       this.videoOverlay.noLoop();
     }
@@ -79,32 +80,16 @@ class Screen{
 
     value = constrain(value, 0, 100);
 
-    distortRamp += value;
+    distortRamp += value*1.5;
     distortRamp = constrain(distortRamp, 0, DISTORTIONLIMIT);
 
     
     float v = map(distortRamp,0,DISTORTIONLIMIT,0,1);
     
-    if (distortRamp<1) {
+    if (distortRamp<2) {
       distortRamp = 0;  // if distort is less than 1, stop distortions
-
-      video.volume(0);
-      videoOverlay.volume(1);
-
-      videoOverlay.jump( video.time() );
     }
-    else {
-      video.volume(1);
-      videoOverlay.volume(0);
-    }
-
-    /// make d a class variable
-    /// make a transtition with d = lerp(d, map(dR), 0.5)
-    float d = map(distortRamp, 0, DISTORTIONLIMIT, 1.5, 0.2);
-
-    // println(distortRamp+"--"+value+"--"+d);
-    // this.video.speed(d);
-    // this.videoOverlay.speed(d);
+    
   }
 
 
@@ -121,36 +106,40 @@ class Screen{
       blending = lerp(map (distortRamp, 0, DISTORTIONLIMIT, 0, 1), blending, 0.1);
 
       tint(255, (1-blending) * 255);
-      image(video, region.x, region.y, region.w, region.w/1.87);
+      image(video, region.x, region.y, region.w, region.h);
       
       tint(255, blending * 255);
-      image(videoOverlay, region.x, region.y, region.w, region.w/1.87);
+      image(videoOverlay, region.x, region.y, region.w, region.h);
 
+      
+      // volume
+      float v = map(distortRamp,0,DISTORTIONLIMIT,0,1);
+      video.volume(1.0-v);
+      videoOverlay.volume(v);
+      
+      if (abs(video.time() - videoOverlay.time()) > 5) {
+        videoOverlay.jump( video.time() );
+      }
 
       popStyle();
 
-      image(mask, region.x, region.y, region.w, region.w/1.87);
-
-      if (!looping) {
-        this.ended = video.time() > video.duration();
-      }
-
+      image(mask, region.x, region.y, region.w, region.h);
     }
     else {
       pushStyle();
       fill(0);
-      rect(region.x, region.y, region.w, region.w/1.87);
+      rect(region.x, region.y, region.w, region.h);
       popStyle();
     }
     if (debug) drawDebug();
   }
 
 
-  // ???
   public Boolean isEnded(){
-    if (!this.enabled) return false;
-
-    return video.time() > video.duration()-1;
+    if (!this.enabled) return true;
+    
+    float diff = video.duration() - video.time();
+    return diff < 0.5;
   }
 
 
@@ -164,8 +153,6 @@ class Screen{
     float d = 0;
     if (this.enabled)
       d = map(video.time(), 0.0, video.duration(), 0.0, region.w);
-    else 
-      d = 0;
 
     fill(100,250,100);
     rect(region.x, region.y+region.h, d, 10);
@@ -177,11 +164,14 @@ class Screen{
     text("video:   "+this.file, region.x, region.y+region.h+30);
     text("distort: "+this.distortRamp, region.x, region.y+region.h+40);
     text("enabled: "+this.enabled, region.x, region.y+region.h+50);
+    
+    float diff = video.duration() - video.time();
+    text("diff: "+diff, region.x, region.y+region.h+60);
 
     stroke(100,250,100);
     noFill();
-    rect(region.x, region.y, region.w, region.w/1.86);
-    ellipse(region.x+2+(region.w/2), region.y+(region.w/1.85/2), region.w/1.85, region.w/1.85);
+    rect(region.x, region.y, region.w, region.h);
+    ellipse(region.x+2+(region.w/2), region.y+region.h/2, region.h, region.h);
 
     popStyle();
   }

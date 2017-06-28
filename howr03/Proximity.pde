@@ -52,7 +52,7 @@ class Proximity {
 
       if (d > threshold*threshold) {
         diff++;
-        debugImg.pixels[i] = 0;
+        debugImg.pixels[i] = color(100,250,100);
       }
     }
     debugImg.updatePixels();
