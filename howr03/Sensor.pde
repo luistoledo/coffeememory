@@ -50,8 +50,10 @@ public class Sensor {
     String portName = Serial.list()[portNumber];
     println("selected port: "+portName);
     serial = new Serial(this.serialProxy, portName, 9600);
+    serial.clear();
     serial.bufferUntil('\n');
     println("serial connection to "+portName+" done");
+    delay(100);
   }
 
   public class SerialProxy extends PApplet {
@@ -61,23 +63,23 @@ public class Sensor {
           raw = which.readString().trim();
           sensor1 = int(split(raw, ",")[0]);
           sensor2 = int(split(raw, ",")[1]);
-          sensor3 = int(split(raw, ",")[2]);
-          sensor4 = int(split(raw, ",")[3]);
-          sensor5 = int(split(raw, ",")[4]);
-          sensor6 = int(split(raw, ",")[5]);
+          // sensor3 = int(split(raw, ",")[2]);
+          // sensor4 = int(split(raw, ",")[3]);
+          // sensor5 = int(split(raw, ",")[4]);
+          // sensor6 = int(split(raw, ",")[5]);
           
           ps1 = s1;
           s1 = sensor1 > threshold;
           ps2 = s2;
           s2 = sensor2 > threshold;
-          ps3 = s3;
-          s3 = sensor3 > threshold;
-          ps4 = s4;
-          s4 = sensor4 > threshold;
-          ps5 = s5;
-          s5 = sensor5 > threshold;
-          ps6 = s6;
-          s6 = sensor6 > threshold;
+          // ps3 = s3;
+          // s3 = sensor3 > threshold;
+          // ps4 = s4;
+          // s4 = sensor4 > threshold;
+          // ps5 = s5;
+          // s5 = sensor5 > threshold;
+          // ps6 = s6;
+          // s6 = sensor6 > threshold;
         }
       } 
       catch (Exception e) {

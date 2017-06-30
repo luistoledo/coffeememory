@@ -49,14 +49,7 @@ class Chapter {
   }
 
   Boolean isEnded(){
-    //if (this.looping) return false;
-    //&& pan.isEnded() && pan.isEnded();
-    // return pan.isEnded(); 
-    // return cup.isEnded(); 
-    // return pan.isEnded() && cup.isEnded();
-    //return pan.isEnded() && cup.isEnded() && mug.isEnded();
     return pan.isEnded() && cup.isEnded() && mug.isEnded();
-    // return pan.isEnded();
   }
 
   void distort(int value) {

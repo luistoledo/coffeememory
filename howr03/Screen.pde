@@ -48,8 +48,8 @@ class Screen{
     this.video.stop();
     this.videoOverlay.stop();
     
-      this.video.loop();
-      this.videoOverlay.loop();
+    this.video.loop();
+    this.videoOverlay.loop();
 
     this.looping = looping;
     if (!this.looping) {
@@ -59,6 +59,7 @@ class Screen{
 
     video.volume(1);
     videoOverlay.volume(0);
+    this.distort(0);
   }
 
   public void stop() {
@@ -83,8 +84,7 @@ class Screen{
     distortRamp += value*1.5;
     distortRamp = constrain(distortRamp, 0, DISTORTIONLIMIT);
 
-    
-    float v = map(distortRamp,0,DISTORTIONLIMIT,0,1);
+    // float v = map(distortRamp,0,DISTORTIONLIMIT,0,1);
     
     if (distortRamp<2) {
       distortRamp = 0;  // if distort is less than 1, stop distortions

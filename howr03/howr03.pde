@@ -13,8 +13,8 @@ Sensor sensor;
 Proximity proximity;
 
 void settings(){
-  fullScreen();
-  size(800, 600, P2D);
+  // fullScreen();
+  size(400, 600, P2D);
 }
 
 void setup(){
@@ -121,8 +121,12 @@ void draw(){
     pushStyle();
     stroke(100,250,100);
     fill(100,250,100);
-    text("chapter:  "+c, 0, height-10);
+    text("chapter:  "+c, 0, height-20);
+    text("sensor: "+sensor.raw, 0, height-10);
     popStyle();
+  }
+  if (sensor.raw == "not connected") {
+    text("sensor not working restart app and/or restart arduino", 0, 10);
   }
 }
 
