@@ -1,5 +1,6 @@
 boolean debug = false;
 boolean USERSENSOR = true;
+boolean FULLSCREEN = true;
 
 static final int CHAPTER_OUTSIDE = 0;
 static final int CHAPTER_INSIDE  = 1;
@@ -13,13 +14,13 @@ Sensor sensor;
 Proximity proximity;
 
 void settings(){
-  // fullScreen();
-  size(400, 600, P2D);
+  if (FULLSCREEN)
+    fullScreen();
+  else
+    size(400, 600, P2D);
 }
 
 void setup(){
-  //size(800, 600, P2D);
-
   JSONObject jsonData = loadJSONObject("config.json");
 
   ScreensData screensData = new ScreensData(jsonData.getJSONArray("screens"));
@@ -155,6 +156,13 @@ void keyPressed(){
   }
 }
 
+void mousePressed() {
+  if (mouseButton==LEFT)
+    debug = !debug;
+
+  if (mouseButton==RIGHT)
+    exit();
+}
 
 public void movieEvent(Movie m) {
   m.read();
