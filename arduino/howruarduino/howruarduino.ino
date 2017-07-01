@@ -17,7 +17,7 @@
 int sensor0, sensor1, sensor2, sensor3, sensor4, sensor5;
 AnalogSmooth asensor0 = AnalogSmooth();
 AnalogSmooth asensor1 = AnalogSmooth();
-AnalogSmooth asensor2 = AnalogSmooth();
+//AnalogSmooth asensor2 = AnalogSmooth();
 //AnalogSmooth asensor3 = AnalogSmooth();
 
 void setup() {
